@@ -174,24 +174,3 @@
     (cond
       ((zero? m) 1)
       (else (* n (oexpt n (sub1 m)))))))
-
-(define olength
-  (lambda (l)
-    (cond
-      ((null? l) 0)
-      (else (+ 1 (olength (cdr l)))))))
-
-(define pick
-  (lambda (n lat)
-    (cond
-      ((zero? (sub1 n)) (car lat))
-      (else (pick (sub1 n) (cdr lat))))))
-
-(define rempick
-  (lambda (n lat)
-    (cond
-      ((null? lat) '())
-      (else (cond
-              ((zero? (sub1 n)) (cdr lat))
-              (else (cons (car lat)
-                          (rempick (sub1 n) (cdr lat)))))))))
