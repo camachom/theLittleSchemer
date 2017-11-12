@@ -195,3 +195,40 @@
               ((zero? (sub1 n)) (cdr lat))
               (else (cons (car lat)
                           (rempick (sub1 n) (cdr lat)))))))))
+
+(define allnums
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      (else (cond
+              ((number? (car lat)) (cons (car lat)
+                                         (nonums (cdr lat))))
+              (else (nonums (cdr lat))))))))
+
+(define nonums
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      (else (cond
+              ((number? (car lat)) (nonums (cdr lat)))
+              (else (cons (car lat)
+                          (nonums (cdr lat)))))))))
+
+(define equan?
+  (lambda (a1 a2)
+    (cond
+      ((and (number? a1) (number? a2)) (= a1 a2))
+      ((or (number? a1) (number? a2)) #f)
+      (else (eq? a1 a2)))))
+
+(define occur
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      (else (cond
+              ((equan? a (car lat)) (add1 (occur a (cdr lat))))
+              (else (occur a (cdr lat))))))))
+
+(define one?
+    (lambda (n)
+      (equan? n 1)))
