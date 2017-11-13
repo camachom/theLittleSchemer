@@ -232,3 +232,14 @@
 (define one?
     (lambda (n)
       (equan? n 1)))
+
+(define rember*
+  (lambda (a lat)
+    (cond
+      ((null? lat) '())
+      ((atom? (car lat)) (cond
+                           ((equan? a (car lat)) (rember* a (cdr lat)))
+                           (else (cons (car lat)
+                                       (rember* a (cdr lat))))))
+      (else (cons (rember* a (car lat))
+                  (rember* a (cdr lat)))))))
